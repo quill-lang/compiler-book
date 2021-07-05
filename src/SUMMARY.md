@@ -2,9 +2,9 @@
 
 - [Introduction](./introduction/introduction.md)
 
-  - [Keywords and Conventions](./introduction/keywords.md)
+  - [Keywords and conventions](./introduction/keywords.md)
 
-- [Compilation Passes](./passes/passes.md)
+- [Compilation passes](./passes/passes.md)
 
   - [Lexing](./passes/lexing.md)
   - [Parsing](./passes/parsing.md)
@@ -14,3 +14,12 @@
   - [Borrow checking](./passes/borrowck.md)
   - [LLVM IR generation](./passes/llgen.md)
   - [Linking](./passes/linking.md)
+
+- [Correctness](./correctness/correctness.md)
+
+  - [Types, effects and lifetimes](./correctness/types_effects_lifetimes.md)
+  - [Computation rules](./correctness/computation_rules.md)
+
+- [Binary representations](./reprs/reprs.md)
+
+  - [Primitives](./reprs/primitives.md)
