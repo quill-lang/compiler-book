@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Computation rules are logical statements that allow us to define the relationships between types, and exactly how we compute the values of such types. They are analogous to typing rules in type theory, but encapsulate the fact that we must actually compute the value.
+Computation rules are logical statements that allow us to define the relationships between types, and exactly how we compute the values of such types. They are analogous to typing rules in type theory, but encapsulate the fact that we must actually compute the value. In type theory we make the assumption that computing the result of any operation is "free" and "pure", in the sense that we do not need to track the outside effects of a function call, or manage references and copies of memory. This theory of computation takes these consequences of reality into account.
 
 ## Computation context
 

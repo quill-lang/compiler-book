@@ -13,6 +13,7 @@ We define the sets of all types and effects \\( \mathcal T, \mathcal E \\) (resp
 - \\( \\{ \tau, \phi_1, \dots, \phi_n \\} \subseteq \mathcal T \implies !e \in \mathcal E \\) where \\( !e \\) is an effect of type \\( \tau \\) with functions \\( \phi_i \\), and where these \\( \phi_i \\) have types of the form \\( (\sigma \leadsto \dots \leadsto \epsilon \overset{!E\ \`a}\leadsto \epsilon) \in \mathcal T \\), and \\( !E \subseteq \mathcal E, \`a \in \mathcal L \\)
 - \\( \\{ \tau_1, \dots, \tau_n \\} \subseteq \mathcal T \implies (\tau_1 \times \dots \times \tau_n) \in \mathcal T \\)
 - \\( \\{ \tau_1, \dots, \tau_n \\} \subseteq \mathcal T \implies (\tau_1 + \dots + \tau_n) \in \mathcal T \\)
-- \\( \tau \in \mathcal T \implies (\forall \sigma . \tau') \in \mathcal T \\), where \\( \tau' \\) is exactly \\( \tau \\) where all of the instances of \\( \sigma \\) are now quantified over
+- \\( \tau \in \mathcal T \implies (\forall \sigma . \tau') \in \mathcal T \\), where \\( \tau' \\) is exactly \\( \tau \\) where all of the instances of \\( \sigma \in \mathcal T \\) are now quantified over
+- the same type construction quantification can occur for any \\( !E \subseteq \mathcal E \\) and for any \\( \`a \in \mathcal L \\)
 
 Complicated Quill types, such as data types with named fields, can be represented as one of the types in \\( \mathcal T \\) by selecting an (arbitrary) order for the fields. This will not preserve the distinction between different types, since two types with the same fields will be mapped to the same \\( \tau \in \mathcal T \\), but this is not a problem; types being distinct is never a piece of information that is required by the compiler.
