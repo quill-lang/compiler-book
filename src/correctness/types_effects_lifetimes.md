@@ -32,6 +32,8 @@ Given types \\( \sigma, \tau \\), a set of effects \\( !E \\), and a lifetime \\
 
 Likewise, we define the "unique function" type \\( \sigma \overset{!E\ \`a}\leadsto \tau \\) in the same way, with the restriction that the function is not copyable (which will be rigorously defined later).
 
+The symbols \\( \to \\) and \\( \leadsto \\) are taken to be right-associative.
+
 ## Effects
 
 An effect \\( !e \\) is a type \\( \epsilon \\) with lifetime \\( \`a \\), possibly with some set of parent effects \\( !F \\), together with a collection of functions which, when provided enough arguments, have the type \\( \epsilon \overset{!F\ \`b}\leadsto \epsilon \\), where \\( \`b <: \`a \\). More formally, the functions associated with an effect have types of the form

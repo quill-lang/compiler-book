@@ -18,6 +18,8 @@
 - [Correctness](./correctness/correctness.md)
 
   - [Types, effects and lifetimes](./correctness/types_effects_lifetimes.md)
+  - [Composite types](./correctness/composite_types.md)
+  - [Sets of types](./correctness/sets.md)
   - [Computation rules](./correctness/computation_rules.md)
 
 - [Binary representations](./reprs/reprs.md)
