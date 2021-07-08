@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Quill Compiler</title>
+                <meta name="robots" content="noindex" />
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="favicon.svg">
+                        <link rel="shortcut icon" href="favicon.png">
+                <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+                <link rel="stylesheet" href="css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+                <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction/introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="introduction/keywords.html"><strong aria-hidden="true">1.1.</strong> Keywords and conventions</a></li></ol></li><li class="chapter-item expanded "><a href="passes/passes.html"><strong aria-hidden="true">2.</strong> Compilation passes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="passes/lexing.html"><strong aria-hidden="true">2.1.</strong> Lexing</a></li><li class="chapter-item expanded "><a href="passes/parsing.html"><strong aria-hidden="true">2.2.</strong> Parsing</a></li><li class="chapter-item expanded "><a href="passes/indexing.html"><strong aria-hidden="true">2.3.</strong> Indexing</a></li><li class="chapter-item expanded "><a href="passes/typeck.html"><strong aria-hidden="true">2.4.</strong> Type checking</a></li><li class="chapter-item expanded "><a href="passes/mirgen.html"><strong aria-hidden="true">2.5.</strong> MIR generation</a></li><li class="chapter-item expanded "><a href="passes/borrowck.html"><strong aria-hidden="true">2.6.</strong> Borrow checking</a></li><li class="chapter-item expanded "><a href="passes/llgen.html"><strong aria-hidden="true">2.7.</strong> LLVM IR generation</a></li><li class="chapter-item expanded "><a href="passes/linking.html"><strong aria-hidden="true">2.8.</strong> Linking</a></li></ol></li><li class="chapter-item expanded "><a href="correctness/correctness.html"><strong aria-hidden="true">3.</strong> Correctness</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="correctness/types_effects_lifetimes.html"><strong aria-hidden="true">3.1.</strong> Types, effects and lifetimes</a></li><li class="chapter-item expanded "><a href="correctness/composite_types.html"><strong aria-hidden="true">3.2.</strong> Composite types</a></li><li class="chapter-item expanded "><a href="correctness/sets.html"><strong aria-hidden="true">3.3.</strong> Sets of types</a></li><li class="chapter-item expanded "><a href="correctness/values.html"><strong aria-hidden="true">3.4.</strong> Values of types</a></li><li class="chapter-item expanded "><a href="correctness/computation_rules.html"><strong aria-hidden="true">3.5.</strong> Computation rules</a></li></ol></li><li class="chapter-item expanded "><a href="llvm/llvm.html"><strong aria-hidden="true">4.</strong> LLVM translation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="llvm/reprs.html"><strong aria-hidden="true">4.1.</strong> Representations</a></li><li class="chapter-item expanded "><a href="llvm/primitives.html"><strong aria-hidden="true">4.2.</strong> Primitives</a></li><li class="chapter-item expanded "><a href="llvm/fobj.html"><strong aria-hidden="true">4.3.</strong> Function objects</a></li><li class="chapter-item expanded "><a href="llvm/currying.html"><strong aria-hidden="true">4.4.</strong> Function currying</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Quill Compiler</h1>
+
+                    <div class="right-buttons">
+                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="quill-compiler-project"><a class="header" href="#quill-compiler-project">Quill Compiler Project</a></h1>
+<p>The Quill compiler's internals are documented here in this book. This is not intended as a programmer's guide to learning the language, but rather a guide to the internals of the compiler itself.</p>
+<h2 id="goals"><a class="header" href="#goals">Goals</a></h2>
+<p>The project aims to create a programming language which is expressive, safe, and fast (in that order). We accomplish these goals through various means. The language is designed to be expression-oriented, making expressions (rather than statements) the core structural primitive of the language. This lends the language to more of a functional programming style than an imperative programming style. This is augmented with a higher-kinded type system that allows for rich abstractions. To ensure safety, we use a Rust-style borrow system that ensures that all references to data are valid, and that data is deleted once it is no longer required. This allows us to avoid the necessity of a garbage collector, which has become a staple in most modern functional programming languages. Finally, the language is compiled down into LLVM which is then translated into machine code for any given architecture, which allows the language to be fast.</p>
+<h2 id="how-to-use-this-book"><a class="header" href="#how-to-use-this-book">How to use this book</a></h2>
+<p>This book is not designed to teach the Quill language, but to detail the language's design and prove correctness of execution. The 'compilation passes' section outlines what happens in each phase of the compiler, but does not offer any proofs of correctness. The 'correctness' sections afterwards contain specific implementation details and show that those details give a correct program. It is important to understand what happens in each pass before considering the ramifications of those design decisions in the 'correctness' sections.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="keywords-and-conventions"><a class="header" href="#keywords-and-conventions">Keywords and Conventions</a></h1>
+<p>We define a number of useful keywords for the internals of the compiler to ensure consistency.</p>
+<h2 id="locations-and-ranges"><a class="header" href="#locations-and-ranges">Locations and Ranges</a></h2>
+<p>A <em>location</em> is a zero-indexed line number and column number inside a source file. An empty file begins at location (0, 0). A <em>range</em> is a pair of locations, the beginning and end of the range. The end location is <em>not included</em> in the range, so a range starting at (3, 6) containing two characters would have end point (3, 8). If some object is <em>ranged</em>, there exists a method that produces a range given a reference to that object. This is implemented using the <code>Ranged</code> trait in the compiler.</p>
+<p>A <em>source file</em> is a <code>.ql</code> file, containing Quill source code. Source files may be grouped into directories on disk, which are referred to as <em>modules</em>. A source file identifier is the combination of a module identifier (a list of module segments, which may be empty) and a file name (which does not include the <code>.ql</code> extension, as this is implicit). File names do include the file extension if it is not <code>.ql</code>; notably the <code>quill.toml</code> file at the project root must be fully qualified as such.</p>
+<h2 id="names-and-identifiers"><a class="header" href="#names-and-identifiers">Names and Identifiers</a></h2>
+<p>We define a <em>name</em> to be an unqualified name for a variable, data structure, function, or something like this. An <em>identifier</em>, on the other hand, is a potentially qualified name. While forming the HIR (described below), the compiler resolves identifiers into <em>qualified names</em>, which contain the exact path where a definition/function was defined.</p>
+<h2 id="diagnostics-and-errors"><a class="header" href="#diagnostics-and-errors">Diagnostics and Errors</a></h2>
+<p>A monadic diagnostic system is used, which allows for correct chaining of diagnostic messages combined with results (see the compiler source code for how diagnostic results are used in practise). A <em>diagnostic</em> is the location where a message is emitted from, represented by a source file identifier and optionally a more specific range of characters inside the file. If a range is supplied to the diagnostic, then it will print this range of characters alongside the error message it emits.</p>
+<p>A <em>diagnostic result</em> contains optionally a value, along with a list of error messages to be emitted. A diagnostic result has <em>failed</em> if it contains no value. Otherwise, the result has <em>succeeded</em>. If a diagnostic result failed, then it must contain at least one error message with the <code>Error</code> severity.</p>
+<p>Diagnostic results can be bound together using the <code>bind</code> function, which combines the diagnostics and error states of the two diagnostic results. In particular, running <code>a.bind(b)</code> gives:</p>
+<ul>
+<li>
+<p>if <code>a</code> failed, returns a failed diagnostic result with <code>a</code>'s error messages</p>
+</li>
+<li>
+<p>if <code>a</code> succeeded, executes the function <code>b</code> with the value inside <code>a</code></p>
+<ul>
+<li>if <code>b(a_value)</code> failed, returns a failed diagnostic result with <code>a</code>'s error messages and <code>b</code>'s error messages concatenated together</li>
+<li>if <code>b(a_value)</code> succeeded, returns a successful diagnostic result with <code>a</code>'s error messages and <code>b</code>'s error messages</li>
+</ul>
+</li>
+</ul>
+<h2 id="expressions"><a class="header" href="#expressions">Expressions</a></h2>
+<p>An <em>expression</em> is the core building block of programs in Quill. It represents a computation that can be evaluated. An expression's <em>content</em> is the actual code that makes up an expression. The content of an expression is a local variable, a block of code, a <code>let</code> statement, a <code>lambda</code> abstraction, or something similar. An expression has a <em>type</em> associated with it.</p>
+<h2 id="types"><a class="header" href="#types">Types</a></h2>
+<p>A <em>type</em> can be one of the following:</p>
+<ul>
+<li>a concrete type, such as <code>int</code> or <code>Either[int, bool]</code>, or</li>
+<li>a type variable, like <code>T</code> or <code>M[A]</code>, or</li>
+<li>a function, such as <code>int -&gt; bool</code>.</li>
+</ul>
+<p>Concrete types and type variables may take a number of <em>type parameters</em>. A <em>primitive type</em> is a concrete type that is built in to the language (not the standard library), such as <code>unit</code> or <code>int</code>.</p>
+<h2 id="intermediate-representations"><a class="header" href="#intermediate-representations">Intermediate Representations</a></h2>
+<p>Quill code is translated through a number of different intermediate representations, or IRs, before being translated into machine code. The main stages, in order, are:</p>
+<ul>
+<li>HIR (high-level IR). In high-level IR, expression contents are known, but expression types are not. All references have already been resolved by this point, converting unqualified identifiers into qualified names.</li>
+<li>MIR (mid-level IR). At this stage, the types of each expression have been deduced. The main primitive is no longer the <em>expression</em>, but the <em>instruction</em>; the control flow has been translated from a functional style into an imperative style. Code is organised into blocks, which have jump conditions that describe how to jump between code blocks. It is at this stage that borrow checking, drop checking, and most optimisations occur.</li>
+<li>LLVM IR (low-level IR). LIR is converted into LLVM's IR, which allows it to be compiled to machine code. It is at this stage that the compiler performs useful tasks such as monomorphisation and inlining.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="compilation-passes"><a class="header" href="#compilation-passes">Compilation passes</a></h1>
+<p>The Quill compiler runs a number of passes on input code to transform it into machine code. The passes are outlined below. If any pass fails (i.e. emits an unrecoverable error), then subsequent passes are not executed, and the compiler stops processing.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lexing-quill_lexer"><a class="header" href="#lexing-quill_lexer">Lexing (<code>quill_lexer</code>)</a></h1>
+<p>The lexing phase is the first pass. It takes an input string of code, and converts it into a stream of individual tokens, which after that point may not be separated. It assigns each token a <em>type</em>, such as <code>Assign</code> (<code>=</code>) or <code>Arrow</code> (<code>-&gt;</code>).</p>
+<p>This is implemented as an LL(1) parser on a stream of Unicode code points. In particular, the input string is partitioned into lines, which are individually tokenised. To tokenise a single line of code, whitespace is skipped, and then the next code point is peeked at. Depending on the type of this code point (symbolic, alphanumeric, or a bracket), the tokeniser will greedily consume more code points according to a given predicate. In particular,</p>
+<ul>
+<li>brackets <code>[](){}</code> are always single character tokens</li>
+<li>control characters are always invalid, and emit an error</li>
+<li>if the code point is a <code>/</code>, the tokeniser looks ahead one code point; if this is also a <code>/</code> then the remainder of this line is considered a comment line and discarded</li>
+<li>for alphanumeric characters (those in the <code>Alphabetic</code>, <code>Nd</code>, <code>Nl</code> and <code>No</code> Unicode categories), more alphanumeric characters and the <code>_</code> character are consumed</li>
+<li>for any other character, non-alphanumeric, non-whitespace, non-bracket characters are consumed</li>
+</ul>
+<p>If the token is not a bracket, a comment line, it is first Unicode normalised (according to the NFC convention). Then, a check is performed to see if this token is a reserved keyword. If it is not a reserved keyword, it is an identifier. The list of reserved keywords can be found in the lexer's source code in the <code>token_type_alphabetic</code> and <code>token_type_symbol</code> functions.</p>
+<p>Note that as this tokenisation is happening, the lexer keeps track of the range that each token occupies inside the file.</p>
+<p>Then, the lexer pairs up opening and closing brackets of each type, grouping the contents of each bracketed block into a <em>token tree</em>. If brackets could not be paired, an error message is emitted. The lexer then returns the list of token trees it has lexed. The entire file is not considered to be a single token tree, rather it is a list of token trees.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="parsing"><a class="header" href="#parsing">Parsing</a></h1>
+<p>The parsing phase converts a list of token trees (representing a source file) and identifies their structure. For example, it identifies top-level item declarations such as data types and definitions, and it also parses the contents of expressions. This phase creates an abstract syntax tree, with the <code>P</code> (for parsed) suffix on most data types. Identifiers are not resolved in this step.</p>
+<h2 id="items"><a class="header" href="#items">Items</a></h2>
+<p>The top level construct to be parsed is called an <em>item</em>. This is either a definition (created with the <code>def</code> keyword) or a type (created with the <code>data</code> or <code>enum</code> keywords). Every item has a <em>visibility</em>, which is either public or private. The parser operates by trying to parse items until the end of the file.</p>
+<h2 id="data-and-enum-blocks"><a class="header" href="#data-and-enum-blocks"><code>data</code> and <code>enum</code> blocks</a></h2>
+<p>A data block defines a product data type. An enum block defines a sum data type, represented as the sum of one or more variants. Each variant has the same syntax as a data block.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="indexing"><a class="header" href="#indexing">Indexing</a></h1>
+<p>The indexing phase collates all of the parsed files from the entire project and compiles top-level data declarations and definitions into an index. At this point, the types of definitions are deduced, but their contents are not considered. Similarly, the types of fields of data types are deduced. This phase is split into two halves.</p>
+<p>First, the type <em>cache</em> is created, which stores all type declarations. Each type declaration is cached as a qualified name.</p>
+<p>Then, the type cache is used to resolve the types of all definitions and fields in data types. This yields the <em>project index</em>, which is a map from qualified names of types and definitions to the actual type or definition it references. Note that the types and definitions are stored in separate 'namespaces'; it is possible to give a type and a definition the same name without name collisions. Enum variants are also stored, mapping the names of enum variants to the enum type it constructs. This allows unqualified identifiers to be translated into fully qualified identifiers.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="type-checking"><a class="header" href="#type-checking">Type Checking</a></h1>
+<p>The type checking phase uses the project index, generated by the previous step, to deduce all types of expressions inside definitions.</p>
+<p>A Hindley-Milner-style algorithm is used, with the precise implementation customised to the language. At the moment, higher-kinded types technically work, but they are not usable yet since type classes are yet to be added to the language.</p>
+<p>This step returns the representation of the source file in HIR, the first real intermediate representation. At this point, much of the syntactic sugar in the language has been removed to help with future steps. All types of all expressions are now known, but no monormorphisation has happened, so we might still be stuck with just knowing type variables.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mir-generation"><a class="header" href="#mir-generation">MIR Generation</a></h1>
+<p>This step generates the MIR from the HIR. MIR is a mid-level intermediate representation. Creation and destruction of objects is made explicit. MIR contains polymorphic code that is stack/heap agnostic. Monomorphisation and data representation deduction occur later. This step handles definitions only, and does not operate on types.</p>
+<h2 id="type-variables"><a class="header" href="#type-variables">Type variables</a></h2>
+<p>A definition in MIR contains a list of type variables. These type parameters have a name, e.g. <code>T</code>, and might be <em>higher-kinded</em>. A higher-kinded type is a type variable that takes one or more parameters. For instance, <code>M[_]</code> is a higher-kinded type with one parameter.</p>
+<h2 id="arity-and-return-type"><a class="header" href="#arity-and-return-type">Arity and return type</a></h2>
+<p>A definition's <em>arity</em> is the amount of parameters that must be supplied in order to execute the definition body. The <em>return type</em> of the definition is the type that results from applying a number of arguments equal to its arity to the function. For instance, if we defined a function</p>
+<pre><code>def foo: int -&gt; int -&gt; int {
+    foo a b = a
+}
+</code></pre>
+<p>then the arity would be two, the arguments would have types <code>[int, int]</code> and the return type would be <code>int</code>. If instead we defined it as</p>
+<pre><code>def foo: int -&gt; int -&gt; int {
+    foo a = \b -&gt; a
+}
+</code></pre>
+<p>then the arity would be one, the argument would have type <code>int</code> and the return type would be <code>int -&gt; int</code>.</p>
+<h2 id="definition-body"><a class="header" href="#definition-body">Definition body</a></h2>
+<p>The body of a definition is composed of a set of <em>basic blocks</em>. A basic block has an ID and contains zero or more <em>statements</em>. Statements are simple structures such as creating and destroying data, or calling a function. Control flow is linear inside a basic block. Basic blocks end with a <em>terminator</em>, which governs what happens once the basic block finishes.</p>
+<h2 id="local-variables-and-places"><a class="header" href="#local-variables-and-places">Local variables and places</a></h2>
+<p>Certain statements will retrieve values from, or assign values to, local variables. A local variable is simply a container that can hold a single value of a certain (fixed) type. Local variables are always in static single assignment (SSA) form; they are assigned a value a maximum of once, and then that value may be retrieved later. Intermediate values of expressions are also local variables. The arguments to a function are also considered to be local variables. In order to manipulate a value, it must first be made into a local variable. For instance, to call a function, the function must first be instantiated into a local variable.</p>
+<p>A <em>place</em> is a local variable along with a <em>projection</em> which allows us to index inside this local variable into deeper and deeper nested places. For instance, suppose we define a data type</p>
+<pre><code>data Foo { value: Bar }
+</code></pre>
+<p>Then, if <code>foo</code> is a local variable, <code>foo.value</code> is a place inside <code>foo</code>, accessible through the projection <code>.place</code>. Projections can also be made for enum values, e.g. <code>foo.&lt;Bar&gt;.baz</code> references the field <code>baz</code> of the variant <code>Bar</code> of the local variable <code>foo</code>. Note that when accessing an enum field through a projection, no check is made to see whether the enum really has the given variant.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="borrow-checking"><a class="header" href="#borrow-checking">Borrow Checking</a></h1>
+<p>The borrow checking phase computes the lifetimes of borrows, and checks that all borrows to data are valid.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="llvm-ir-generation"><a class="header" href="#llvm-ir-generation">LLVM IR Generation</a></h1>
+<p>Finally, we can produce LLVM IR, an IR which can be translated into an object file for many kinds of architectures. Each construct in Quill must be translated into binary, called a <em>representation</em> of that object. This is discussed in the <a href="passes/../reprs/reprs.html">representations</a> section of the book.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linking"><a class="header" href="#linking">Linking</a></h1>
+<p>We invoke LLVM's linker <code>lld</code> to combine the object files into a single executable, and to link statically with the C standard library. This allows us to use common, optimised functions such as <code>malloc</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="correctness"><a class="header" href="#correctness">Correctness</a></h1>
+<p>We are interested in proving that the resultant program, when compiled, really does produce the intended result, without undefined behaviour. To do this, we must first define the &quot;intended result&quot;, defined in terms of the HIR, the high-level intermediate representation, which has type information.</p>
+<p>Precise algorithms and implementation details are specified whenever they would have an effect on the program's execution. The compiler is free to reject certain programs that conform to the HIR definition supplied here, for instance because borrow checking fails. The specific lifetimes of borrows are not considered to be a part of a program's correctness, only that the compiler must guarantee certain constraints (e.g. lifetimes never outlive the object) as specified later.</p>
+<p>Notably, we do not specify specific algorithms for such tasks as visibility checking, module systems, dependency management, type inference and borrow checking, since these do not contribute significantly to proving the correctness of a program at <em>run time</em>. It is therefore left as an implementation detail to provide a correct type inference algorithm and borrow checker, although proofs for certain cases may be supplied here eventually.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="types-effects-and-lifetimes"><a class="header" href="#types-effects-and-lifetimes">Types, effects and lifetimes</a></h1>
+<h2 id="lifetimes"><a class="header" href="#lifetimes">Lifetimes</a></h2>
+<p>A <em>region</em> or <em>lifetime</em> \( `a \) is a set, which is defined to be the exact time it takes to perform some computation. The entire program's runtime is the region \( `\Omega \). All regions defined in a program are implicitly subsets of \( `\Omega \). A lifetime is often used to define a time period in which some action is permitted to be performed. Most commonly, this is used for borrowing data: the Quill code <code>&amp;'a T</code> means &quot;a borrow of some data of type <code>T</code> which may be dereferenced during the time period <code>'a</code> (without undefined behaviour)&quot;. Note that this is not time in the &quot;wall clock&quot; sense, but time in the sense of regions of code, or (in the case of the current Quill compiler implementation) a block of lines of MIR.</p>
+<p>Two lifetimes \( `a, `b \) can be related by a partial order \( &lt;: \) where we say \( `a &lt;: `b \) if for all temporal instants \( t \in `b \), we have \( t \in `a \). We say that \( `a \) <em>outlives</em> \( `b \), since whenever \( `b \) is valid, \( `a \) is valid. In other words, \( `a &lt;: `b \iff `a \supseteq `b \).</p>
+<p>The set-theoretic operator \( \cup \) may be applied to lifetimes. This allows us to create a lifetime which outlives both its operands.</p>
+<p>Note that the lifetime \( `\Omega \) outlives all others, and hence has the property that \( \forall `a . `\Omega \cup `a = `\Omega\).</p>
+<h2 id="primitive-types"><a class="header" href="#primitive-types">Primitive types</a></h2>
+<p>We will begin by rigorously defining a <em>type</em> in Quill using (in part) type theory, building from System F. By convention, we will use lowercase Greek letters for names of types, and capital Greek letters for sets of types.</p>
+<p>A type is defined to be some symbol \( \tau \), along with a lifetime \( `a \) during which that type is defined to be <em>valid</em>. The exact properties a type has while it is &quot;valid&quot; are explored later.</p>
+<p>We define the primitive types as follows.</p>
+<ul>
+<li>The symbol \( \top \) represents the unit type.</li>
+<li>Given \( n \in \{ 1, 2, \dots, 128 \} \), the symbol \( \alpha_n \) (short for <em>αριθμός</em>) represents the type of integers representable with \( n \) bits in two's complement binary representation. The set of such \( \alpha_n \) types is written \( A \) (capital \( \alpha \)).</li>
+<li>Similarly, given \( n \in \{ 16, 32, 64, 128 \} \), \( \delta_n \) (short for <em>δεκαδικός</em>) represents the type of floating-point numbers representable with \( n \) bits, as defined in the IEEE-754-2008 specification for <code>binary&lt;n&gt;</code>. The set of such \( \delta_n \) types is written \( \Delta \).</li>
+</ul>
+<p>We now define the set of primitive types \( \Pi = \{ \top \} \cup A \cup \Delta \). All primitive types are defined to be valid during \( `\Omega \), that is, for the entire program's execution.</p>
+<h2 id="function-types"><a class="header" href="#function-types">Function types</a></h2>
+<p>We will use the notion of an effect intuitively in this section, and it will be defined rigorously in the subsequent section once we have defined function types.</p>
+<p>Given types \( \sigma, \tau \), a set of effects \( !E \), and a lifetime \( `a \), the function type \( \sigma \overset{!E\ `a}\to \tau \) is the type of functions whose domain is \( \sigma \) and whose codomain is \( \tau \), which may have effects \( !E \), and which is only valid during the lifetime \( `a \). This behaviour will be specified formally later.</p>
+<p>Likewise, we define the &quot;unique function&quot; type \( \sigma \overset{!E\ `a}\leadsto \tau \) in the same way, with the restriction that the function is not copyable (which will be rigorously defined later).</p>
+<p>The symbols \( \to \) and \( \leadsto \) are taken to be right-associative.</p>
+<h2 id="effects"><a class="header" href="#effects">Effects</a></h2>
+<p>An effect \( !e \) is a type \( \epsilon \) with lifetime \( `a \), possibly with some set of parent effects \( !F \), together with a collection of functions which, when provided enough arguments, have the type \( \epsilon \overset{!F\ `b}\leadsto \epsilon \), where \( `b &lt;: `a \). More formally, the functions associated with an effect have types of the form</p>
+<p>\[ \sigma_1 \leadsto \sigma_2 \leadsto \dots \leadsto \epsilon \overset{!F\ `b}\leadsto \epsilon \]</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="composite-types"><a class="header" href="#composite-types">Composite types</a></h1>
+<h2 id="product-types"><a class="header" href="#product-types">Product types</a></h2>
+<p>Given types \( \tau_1, \tau_2, \dots, \tau_n \), their product \( \tau_1 \times \tau_2 \times \dots \times \tau_n \) is a type, and is valid when all of the \( \tau_i \) are valid (the <em>meet</em> of the lifetimes of the \( \tau_i \)). In a later section, we will define computation rules that allow us to construct and deconstruct values of this product type.</p>
+<h2 id="sum-types"><a class="header" href="#sum-types">Sum types</a></h2>
+<p>Given types \( \tau_1, \tau_2, \dots, \tau_n \), their sum \( \tau_1 + \tau_2 + \dots + \tau_n \) is a type, and is valid when all of the \( \tau_i \) are valid. This represents a quill <code>enum</code>, a tagged union. Again, we will define computation rules that allow us to construct and deconstruct values of this sum type.</p>
+<h2 id="type-constructors"><a class="header" href="#type-constructors">Type constructors</a></h2>
+<p>Type constructors allow us to parametrise using a type, effect or lifetime. We can make a type constructor out of any function, product, or sum type. A type constructor is written using the syntax <code>for [T]</code> in Quill, and \( \forall \tau \) here.</p>
+<h2 id="aspects"><a class="header" href="#aspects">Aspects</a></h2>
+<p>Aspects are not complicated; we can represent an impl of an aspect as simply a data type.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sets-of-types-effects-and-lifetimes"><a class="header" href="#sets-of-types-effects-and-lifetimes">Sets of types, effects and lifetimes</a></h1>
+<h2 id="set-of-lifetimes"><a class="header" href="#set-of-lifetimes">Set of lifetimes</a></h2>
+<p>Given a program, recall that the set \( `\Omega \) is the lifetime of the entire program. All other lifetimes are subsets of this set. We define the <em>set of all lifetimes</em> \( \mathcal L \) to be the subset of the power set \( \mathcal P(`\Omega) \) that satisfy the conditions to be a valid lifetime in Quill.</p>
+<h2 id="sets-of-types-and-effects"><a class="header" href="#sets-of-types-and-effects">Sets of types and effects</a></h2>
+<p>We define the sets of all types and effects \( \mathcal T, \mathcal E \) (respectively) to be generated by the following rules.</p>
+<ul>
+<li>\( \Pi \subset \mathcal T \) where \( \Pi \) is the set of primitive types</li>
+<li>\( \{ \sigma, \tau \} \subseteq \mathcal T, !E \subseteq \mathcal E, `a \in \mathcal L, \{ \sigma, \tau \} &lt;: `a \implies (\sigma \overset{!E\ `a}\to \tau), (\sigma \overset{!E\ `a}\leadsto \tau) \in \mathcal T \)</li>
+<li>\( \{ \tau, \phi_1, \dots, \phi_n \} \subseteq \mathcal T \implies !e \in \mathcal E \) where \( !e \) is an effect of type \( \tau \) with functions \( \phi_i \), and where these \( \phi_i \) have types of the form \( (\sigma \leadsto \dots \leadsto \epsilon \overset{!E\ `a}\leadsto \epsilon) \in \mathcal T \), and \( !E \subseteq \mathcal E, `a \in \mathcal L \)</li>
+<li>\( \{ \tau_1, \dots, \tau_n \} \subseteq \mathcal T \implies (\tau_1 \times \dots \times \tau_n) \in \mathcal T \)</li>
+<li>\( \{ \tau_1, \dots, \tau_n \} \subseteq \mathcal T \implies (\tau_1 + \dots + \tau_n) \in \mathcal T \)</li>
+<li>\( \tau \in \mathcal T \implies (\forall \sigma . \tau') \in \mathcal T \), where \( \tau' \) is exactly \( \tau \) where all of the instances of \( \sigma \in \mathcal T \) are now quantified over</li>
+<li>the same type construction quantification can occur for any \( !E \subseteq \mathcal E \) and for any \( `a \in \mathcal L \)</li>
+</ul>
+<p>Complicated Quill types, such as data types with named fields, can be represented as one of the types in \( \mathcal T \) by selecting an (arbitrary) order for the fields. This will not preserve the distinction between different types, since two types with the same fields will be mapped to the same \( \tau \in \mathcal T \), but this is not a problem; types being distinct is never a piece of information that is required by the compiler.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="values-of-types"><a class="header" href="#values-of-types">Values of types</a></h1>
+<p>This section defines what values a given type can have. Each type \( \tau \in \mathcal T \) is associated with a set of values \( V_\tau \). We write \( e \colon \tau \) if \( e \in V_\tau \). Each value \( e \) is required to have only one type.</p>
+<h2 id="primitive-types-1"><a class="header" href="#primitive-types-1">Primitive types</a></h2>
+<p>The unit type \( \top \) has one value, \( \varnothing \).</p>
+<p>The integral primitive types \( \alpha_n \) have values \( \{ \dots, (-1, n), (0, n), (1, n), (2, n), \dots \} \) where the largest value is \( 2^{n-1} - 1 \) and the smallest is \( -2^{n-1} \). The \( n \) is a tag to ensure that <code>1i32</code> and <code>1i64</code> are considered different.</p>
+<p>The floating point primitive types have a set of values as defined in the IEEE-754-2008 specification, tagged with their specific type so that each value belongs to exactly one type. For instance, <code>1.0f32</code> and <code>1.0f64</code> are different since one has type \( \delta_{32} \) and the other has type \( \delta_{64} \).</p>
+<h2 id="product-types-1"><a class="header" href="#product-types-1">Product types</a></h2>
+<p>The product type \( \tau_1 \times \dots \times \tau_n \) has value set \( V_{\tau_1} \times \dots \times V_{\tau_n} \). For instance, the type \( \alpha_1 \times \alpha_2 \) has value set</p>
+<p>\[ \{ ((0, 1), (0, 2)), ((1, 1), (0, 2)), ((0, 1), (1, 2)), ((1, 1), (1, 2)), \\ ((0, 1), (2, 2)), ((1, 1), (2, 2)), ((0, 1), (3, 2)), ((1, 1), (3, 2)) \} \]</p>
+<h2 id="sum-types-1"><a class="header" href="#sum-types-1">Sum types</a></h2>
+<p>The sum type \( \tau = \tau_1 + \dots + \tau_n \) has value set</p>
+<p>\[ \{ (e, 1, \tau) \colon e \in V_{\tau_1} \} \cup \dots \cup \{ (e, n, \tau) \colon e \in V_{\tau_n} \} \]</p>
+<p>This representation stores the specific enum value, and the variant that it came from. It further guarantees that each value \( e \) has only one type, by storing the specific type in the third entry of the tuple.</p>
+<h2 id="type-constructors-1"><a class="header" href="#type-constructors-1">Type constructors</a></h2>
+<p>Any type constructor \( \tau \) has a type of the form \( \ast \to \mathcal T \) where \( \ast \) is one of \( \mathcal T, \mathcal E, \mathcal L \). Their values are simply a pair \( (\dagger, \sigma) \), where \( \dagger \in \ast \), and \( \sigma \in \mathcal T \).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="computation-rules"><a class="header" href="#computation-rules">Computation rules</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Computation rules are logical statements that allow us to define the relationships between types, and exactly how we compute the values of such types. They are analogous to typing rules in type theory, but encapsulate the fact that we must actually compute the value. In type theory we make the assumption that computing the result of any operation is &quot;free&quot; and &quot;pure&quot;, in the sense that we do not need to track the outside effects of a function call, or manage references and copies of memory. This theory of computation takes these consequences of reality into account.</p>
+<h2 id="computation-context"><a class="header" href="#computation-context">Computation context</a></h2>
+<p>A computation context \( \Upsilon_{!E\ `a} \) (short for <em>υπολογίζω</em>) is similar to a typing context in type theory, but represents the abstract state of the computer at some point in time \( t \in `a \) during the runtime of the program. At this point in time, \( \Upsilon \) is capable of &quot;executing&quot; effects \( !E \). This precise meaning will be explored later.</p>
+<h2 id="execution-time"><a class="header" href="#execution-time">Execution time</a></h2>
+<p>Any computation will take a positive amount of time \( \Delta t \) to execute. How do we know that a given input lifetime is valid for the entire duration of the function's execution? The key is that a lifetime can only ever be defined as a region of MIR instructions in the same function. But a function execution is one MIR instruction, so it cannot last for only part of a lifetime. So if a function is provided a lifetime parameter, that lifetime is guaranteed to outlive the function.</p>
+<p>Since this deduction only follows from the way in which MIR is generated, we cannot use it in our ruleset that is based only in HIR. We instead take it as an axiom that all defined lifetimes must follow this rule; they must be defined as regions of expressions.</p>
+<h2 id="computation-rules-in-general"><a class="header" href="#computation-rules-in-general">Computation rules in general</a></h2>
+<p>Computation rules are written as follows.</p>
+<p>\[ \frac{\Upsilon \vdash e_1\colon \tau_1}{\Upsilon_{!E\ `a} \vdash e_2\colon \tau_2} \]</p>
+<p>Informally, we might say: given that a computation context \( \Upsilon \) has produced a value \( e_1 \) of type \( \tau_1 \), the computation context \( \Upsilon_{!E\ `a} \) is capable of computing a value \( e_2 \) of type \( \tau_2 \).</p>
+<p>Notably, we do <em>not</em> specify which effects and lifetimes went in to computing the value \( e_1 \); we just know that it has already been computed. This matches the intuitive semantics of Quill; regardless of how we obtain a value, we can use it in any function. For instance, some text that we obtain from the user (with some kind of IO effect) can be supplied to a pure function (which has no effects).</p>
+<p>This computation rule does not evaluate a computation <em>per se</em>, it simply states that such a computation can be performed, if the given effect and lifetime constraints are satisfied.</p>
+<h2 id="function-computation-rule"><a class="header" href="#function-computation-rule">Function computation rule</a></h2>
+<p>A function type follows the following computation rule:</p>
+<p>\[ \frac{\sigma, \tau &lt;: `a \quad \Upsilon \vdash e_1 \colon \sigma \overset{!E\ `a}\to \tau \quad \Upsilon \vdash e_2 \colon \sigma}{\Upsilon_{!E\ `a} \vdash (e_1\ e_2) \colon \tau} \]</p>
+<p>Informally, this states that if we have a value \(e_1\) of type \(\sigma \overset{!E\ `a}\to \tau\) and another value \(e_2\) of type \(\sigma\), then given a context \( \Upsilon_{!E\ `a} \) we can apply the function \(e_1\) to \(e_2\), yielding a value of type \(\tau\). Note the \( \sigma, \tau &lt;: `a \) constraint: we can only perform this computation if the types \( \sigma, \tau \) are valid for the duration of the function, \( `a \).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="llvm-translation"><a class="header" href="#llvm-translation">LLVM translation</a></h1>
+<p>When compiling to any kind of machine code (such as LLVM IR), we must convert the abstract ideas of an &quot;integer&quot;, a &quot;function&quot; and an &quot;impl&quot; into binary representations. We need to compute a representation for every type in a program. The exact binary representations are defined in this section.</p>
+<p>Other implementation details, such as naming conventions, are also included in this section.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="representations"><a class="header" href="#representations">Representations</a></h1>
+<h2 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h2>
+<p>A <em>representation</em> of a type is a way of encoding a value of that type into binary. A representation is defined recursively.</p>
+<ul>
+<li>The empty set \( \varnothing \) is a representation.</li>
+<li>The 'integer representation' \( i_n \) for \( n \in \mathbb N, n &gt; 0 \) is a representation.</li>
+<li>The 'pointer representation' \( p \) is a representation.</li>
+<li>The product type \( (R_1 \times R_2 \times \dots \times R_n) \) is a representation, where the \( R_i \) are representations. This represents a tuple; its values are of type \( R_1, R_2, \dots, R_n \).</li>
+<li>The sum type \( (R_1 + R_2 + \dots + R_n) \) is a representation, where the \( R_i \) are representations. This represents a tagged union; its value may be of type \( R_1, R_2, \dots, R_n \).</li>
+</ul>
+<p>We define the symbol \( \rho \) to give the representation of any Quill type. For instance, we define \( \rho(\texttt{Unit}) = \varnothing \). This section of the book essentially defines the mechanics of \( \rho \).</p>
+<h2 id="values-of-representations"><a class="header" href="#values-of-representations">Values of representations</a></h2>
+<p>A representation \( R \) is defined on a set of values \( V \). We say a value \( v \in V \) has the representation \( \rho(v) \). Note the distinction between the representation of a type and the representation of a value.</p>
+<p>\[ V = \{ 0, 1, 2, 3, 4, 5, 6, 7 \} \]</p>
+<h2 id="zero-size"><a class="header" href="#zero-size">Zero size</a></h2>
+<p>We say that a representation has <em>zero size</em> if requires no bits of data to encode it in binary.</p>
+<ul>
+<li>\( \varnothing \) has zero size.</li>
+<li>\( p \) has non-zero size.</li>
+<li>\( i_n \) has non-zero size.</li>
+<li>(TODO: this is inaccurate with the new definition of a representation) The set \( \{ (n_1, R_1), (n_2, R_2), \dots, (n_k, R_k) \} \) has zero size if and only if all \( R_i \) have zero size.</li>
+</ul>
+<p>In the compiler, if a type's representation has zero size, we sometimes say that the type has <em>no representation</em>.</p>
+<h2 id="llvm-conversion"><a class="header" href="#llvm-conversion">LLVM conversion</a></h2>
+<p>To convert a representation to an LLVM type, we first consider if the representation has zero size. If this is true, there exists no LLVM type to represent this object. So the variable must be completely deleted, along with any accesses from and assignments to it.</p>
+<p>If it has a size, we construct an LLVM type as follows:</p>
+<ul>
+<li>The representation of \( i_n \) is <code>i&lt;n&gt;</code>.</li>
+<li>The representation of \( p \) is <code>i8*</code>, since <em>a priori</em> we do not know the type of the value behind the pointer.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="primitives"><a class="header" href="#primitives">Primitives</a></h1>
+<p>Primitive types have pre-defined representations:</p>
+<ul>
+<li><code>Unit</code> \( \to \varnothing \)</li>
+<li><code>Int</code> \( \to i_{64} \)</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="function-objects"><a class="header" href="#function-objects">Function objects</a></h1>
+<h2 id="introduction-2"><a class="header" href="#introduction-2">Introduction</a></h2>
+<p>A function object in Quill is an object that can perform dynamically dispatched function invocation. In LLVM, a function object is a data structure that contains three fields, which will be discussed in detail in the following sections. In rough C-like syntax:</p>
+<pre><code class="language-c">struct fobj {
+    void* fptr;
+    void* copy;
+    void* drop;
+};
+</code></pre>
+<p>Function objects are expected to be allocated on the heap, and passed around by pointer. The reason for this is explored later.</p>
+<h2 id="fptr"><a class="header" href="#fptr"><code>fptr</code></a></h2>
+<p>The <code>fptr</code> field of a <code>fobj</code> is a pointer to the function which will be called. If the Quill type of this function object is <code>A -&gt; B</code>, the real type signature of <code>fptr</code> should be (again in C-like syntax):</p>
+<pre><code class="language-c">B_t fptr(fobj* f, A_t a);
+</code></pre>
+<p>where <code>A_t</code> and <code>B_t</code> are the LLVM representations of <code>A</code> and <code>B</code>. To call the function behind a function object, invoke the <code>fptr</code> (appropriately cast to the correct function signature, given the known Quill type), where the first parameter is the <code>fobj*</code>.</p>
+<h2 id="function-objects-with-extra-data"><a class="header" href="#function-objects-with-extra-data">Function objects with extra data</a></h2>
+<p>Sometimes, we want to add extra data to a function object. For instance, the function object given by <code>\a -&gt; x + a</code> (where <code>x</code> is a local integer variable) has an extra field it must keep track of, the value of <code>x</code>. We cannot simply represent this as a <code>fobj</code>, but we can create a new larger type to hold this data.</p>
+<pre><code class="language-c">struct fobj_lambda {
+    void* fptr;
+    void* copy;
+    void* drop;
+    int x;
+};
+</code></pre>
+<p>This <code>fobj_lambda</code> type has all the same fields as <code>fobj*</code> does, but contains the extra <code>int</code>. The function referred to by the function object would be something like</p>
+<pre><code class="language-c">int fptr_lambda(fobj* f, int a) {
+    fobj_lambda* f_cast = (fobj_lambda*) f;
+    return f_cast-&gt;x + a;
+}
+</code></pre>
+<p>By storing <code>x</code> in the function object, we can access it later in <code>fptr_lambda</code>. Now, note that by adding <code>x</code> as the <em>final</em> field of <code>fobj_lambda</code>, we can safely cast a <code>fobj_lambda*</code> to <code>fobj*</code>, effectively forgetting that we had an extra field - although that extra field remains on the heap. When the specific <code>fptr</code> is invoked, we know that the <code>fobj*</code> must in fact be a <code>fobj_lambda*</code>, so we can cast it back and recover that extra field that we stored earlier. This is the advantage of always storing function objects as pointers, since they can carry arbitrary extra data.</p>
+<p>Any <code>fptr</code> should only be invoked once for a given <code>fobj*</code>, since it is free to destructively use the contents of the <code>fobj*</code>. In particular, the <code>fptr</code> should dispose of the contents of the <code>fobj*</code> and free all of its memory.</p>
+<h2 id="copy-and-drop-functions"><a class="header" href="#copy-and-drop-functions">Copy and drop functions</a></h2>
+<p>The copy and drop functions should have signatures</p>
+<pre><code class="language-c">fobj* copy(fobj*);
+void drop(fobj*);
+</code></pre>
+<p>These functions are automatically generated and cannot be overridden in Quill code. The <code>copy</code> function should return a semantically equivalent copy of the function object, and <code>drop</code> should free its memory without invoking the function (or causing any side effects).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="function-currying"><a class="header" href="#function-currying">Function currying</a></h1>
+<h2 id="curried-vs-non-curried"><a class="header" href="#curried-vs-non-curried">Curried vs non-curried</a></h2>
+<p>Function currying is an important part of Quill code; that is, partial application of functions. For instance, given a function <code>foo: A -&gt; B -&gt; C</code>, and some <code>a: A</code>, we can write <code>foo a</code> to produce a function of type <code>B -&gt; C</code> which can be used wherever an explicitly-declared <code>B -&gt; C</code> function can.</p>
+<p>In order to make this possible, curried and non-curried functions are both treated (in principle) as function objects by the compiler. This means, for example, that invoking <code>foo a</code> will produce a function object of the type <code>B -&gt; C</code>. By extension, simply writing <code>foo</code> produces a function object of the type <code>A -&gt; B -&gt; C</code>. Of course, the compiler is free to optimise function objects away when the exact control flow can be determined at compile time, but this general strategy is used in all other cases.</p>
+<h2 id="arity-of-functions"><a class="header" href="#arity-of-functions">Arity of functions</a></h2>
+<p>The arity of a function is defined in MIR. Intuitively, it is the number of arguments that must be supplied in order to enter the function's control flow. Because we can specify functions in a number of different ways in Quill, a function's arity can not be determined from its type. For instance, consider the function <code>add_ints: Int -&gt; Int -&gt; Int</code> defined in two ways:</p>
+<pre><code>add_ints a b = a + b
+add_ints a = \a -&gt; a + b
+</code></pre>
+<p>In the first instance, the arity is two, because we need two arguments before any control flow in the function is entered. In the second instance, the arity is one, because we only need one argument in order to know what to do (namely, create the lambda). Even though these two alternatives are semantically identical, they have different MIR and LLVM IR representations.</p>
+<h2 id="converting-curried-functions-to-function-objects"><a class="header" href="#converting-curried-functions-to-function-objects">Converting curried functions to function objects</a></h2>
+<p>For every Quill function defined in a program, the Quill compiler may generate multiple LLVM functions which can be used in different circumstances. For example, the Quill code <code>foo a b</code> actually calls three different LLVM functions:</p>
+<ul>
+<li>generating the function object <code>foo: A -&gt; B -&gt; C</code></li>
+<li>calling <code>foo a</code> to produce some <code>B -&gt; C</code></li>
+<li>calling <code>(foo a) b</code> to produce some <code>C</code></li>
+</ul>
+<p>All three of these functions are associated with the same Quill function, but are used with different &quot;curry steps&quot;. The list of &quot;curry steps&quot; associated with an LLVM function details how many more parameters are allowed to be supplied to this function. For example, <code>foo a</code> has curry steps <code>[1]</code>, since we are only allowed to supply one parameter <code>b</code>. <code>foo</code> has curry steps <code>[1, 1]</code>, since we are allowed to supply one parameter <code>a</code> (the first <code>1</code>), and then a second parameter <code>b</code> (the second <code>1</code>).</p>
+<p>For optimisation purposes, the Quill compiler is allowed to provide a different list of curry steps, e.g. <code>foo</code> could have curry steps <code>[2]</code>. This would mean that <code>a</code> and <code>b</code> must be provided at the same time, to directly produce the resulting value without creating an intermediate function object. Note that in either case, the sum of the curry steps is the arity of the function, which in this case is 2.</p>
+<h2 id="direct-vs-indirect"><a class="header" href="#direct-vs-indirect">Direct vs indirect</a></h2>
+<p>Note that there is a difference between just writing <code>foo a</code> and calling <code>f a</code> for some unknown function <code>f</code>. In the first case we are explicitly telling Quill that we want to apply <code>a</code> to the function <code>foo</code> which is known at compile time. This is called a &quot;direct&quot; function call. Calling <code>f a</code> without the knowledge of <code>f</code> is called an &quot;indirect&quot; function call, since the function call is performed via a function object. We will now explore how direct and indirect function calls differ.</p>
+<h2 id="direct-function-calls"><a class="header" href="#direct-function-calls">Direct function calls</a></h2>
+<p>A direct function call is a function call where we</p>
+<ul>
+<li>know at compile time what function we are calling, and</li>
+<li>specify any number of the initial arguments of the function explicitly, up to the function's arity</li>
+</ul>
+<p>For instance, we could call <code>foo a b</code> directly. The Quill compiler generates an LLVM function for this:</p>
+<pre><code class="language-c">C &quot;foo/[]d&quot;(A a, B b);
+</code></pre>
+<p>The name of this LLVM function is <code>foo/[]d</code> (the quotes are simply for grouping this name into one token). Broken into its component parts, this means:</p>
+<ul>
+<li><code>foo</code>: the function was named <code>foo</code> in Quill</li>
+<li><code>/</code>: a delimiter</li>
+<li><code>[]</code>: the list of curry steps, which is empty since we are not doing any function currying</li>
+<li><code>d</code>: the function is being called directly</li>
+</ul>
+<p>We could alternatively call <code>foo a</code> directly, and choose not to provide the last parameter. In this case, the function we want to use would be</p>
+<pre><code class="language-c">fobj* &quot;foo/[1]d&quot;(A a);
+</code></pre>
+<p>This time, the curry steps are <code>[1]</code>: the output of this function is a function object which may accept one parameter (of type <code>B</code>). By extension, we also have</p>
+<pre><code class="language-c">fobj* &quot;foo/[1, 1]d&quot;();
+</code></pre>
+<p>which is a function that simply instances <code>foo</code> as a function object. Unless the compiler can perform optimisations, this is how all functions are created by default: they are first instanced into a function object by way of a direct function, and then the arguments to the function are applied subsequently to this new function object.</p>
+<p>Note that all arguments before (but <em>not</em> including) the given curry steps are given as function parameters. The return type is a function object with a list of curry steps equivalent to the list of curry steps of this function. If the list of curry steps is empty, the result is instead just the output of the function.</p>
+<h2 id="indirect-function-calls"><a class="header" href="#indirect-function-calls">Indirect function calls</a></h2>
+<p>An indirect function call is a function call where we</p>
+<ul>
+<li>do not necessarily know at compile time what function we are calling, and</li>
+<li>specify a given number of extra arguments to the function</li>
+</ul>
+<p>While we might not know the exact function we are calling at compile time, we are guaranteed to know its exact list of curry steps at compile time. Given a function object, we cannot change its list of curry steps. The first entry on this list is the amount of extra arguments we are allowed to supply to this function. Given a function object <code>f</code> of type <code>A -&gt; B -&gt; C</code> with curry steps <code>[1, 1]</code>, we can provide a value of type <code>A</code> using a function of the following form.</p>
+<pre><code class="language-c">fobj* fptr_function(fobj* f, A a);
+</code></pre>
+<p>The input <code>fobj*</code> is just <code>f</code>, and the function we call is the <code>fptr</code> contained inside the <code>fobj*</code>. The rest of the parameters are the parameters required for the first curry step. The return value of this function is a function object of type <code>B -&gt; C</code> with curry steps <code>[1]</code>, which is the original list of curry steps with the first entry removed. Note that this is simply a more in-depth re-statement of the rules for invoking a function object defined in the previous section of the book.</p>
+<h2 id="summary-of-function-call-semantics"><a class="header" href="#summary-of-function-call-semantics">Summary of function call semantics</a></h2>
+<p>Calling a direct function with curry steps <code>[steps]</code> allows you to create a function object with curry steps <code>[steps]</code>. By providing a smaller list of curry steps, you can pass in some of the initial values of the function. You must pass in <code>arity - sum(steps)</code> arguments, so that the original function will eventually receive <code>arity</code> arguments in total.</p>
+<p>Calling an indirect function with curry steps <code>[a, tail]</code> allows you to pass in <code>a</code> extra arguments to a function object, to yield another function object with only <code>[tail]</code> curry steps.</p>
+<p>Direct functions allow us to &quot;jump inside the currying chain&quot; - providing an amount of parameters, we can create a function object holding these parameters. We can think of indirect functions as &quot;going one level down the currying chain&quot;, since they always consume and emit a function object (unless, of course, this is the last currying step - in which case the actual function is executed and its return type becomes the only return value).</p>
+<h2 id="function-object-definitions"><a class="header" href="#function-object-definitions">Function object definitions</a></h2>
+<p>Now that we know how to call direct and indirect functions, we can see how they are defined in LLVM IR. Direct functions are easier to explain, so we will start with those. Given a function <code>foo</code> and a (valid) list of curry steps <code>[steps]</code>, the Quill compiler can generate a direct function with the signature</p>
+<pre><code class="language-c">return_type &quot;foo/[steps]d&quot;(some_arguments_here);
+</code></pre>
+<p>If <code>[steps] = []</code>, then this contains the &quot;real&quot; function body, the code written in Quill. Otherwise, this contains some glue code creating a function object with <code>[steps]</code> curry steps. The type of this function object is named <code>o/foo/last_step</code>, where <code>last_step</code> is the last element of <code>[steps]</code>. If <code>[steps] = []</code>, then there is no <code>/last_step</code> suffix. <code>foo/[steps]d</code> returns a <code>o/foo/last_step*</code>, which can be freely cast to and from a <code>fobj*</code>.</p>
+<p>The <code>o/foo/last_step</code> object allocates enough storage space in advance for all of the parameters to the function, excluding the last <code>last_step</code> parameters. This prevents reallocation of the <code>o/foo/last_step</code> object every time we supply an extra parameter. The parameters that have not yet been supplied are not initialised, so until the function is fully applied there may be garbage values in the function object. Note that the <code>last_step</code> in the name of the function object is (in principle) not enough to fully define the list of curry steps of the function object; this information is kept in MIR but not preserved in the name of the type in LLVM IR; the same <code>o/foo/last_step</code> object can be used for multiple kinds of function currying strategies.</p>
+<p>The Quill compiler can generate an indirect function with the signature</p>
+<pre><code class="language-c">&quot;o/foo/last_step&quot;* &quot;foo/[a, tail]i&quot;(&quot;o/foo/last_step&quot;* fobj, some_arguments_here);
+</code></pre>
+<p>where there are exactly <code>a</code> extra arguments supplied. Note that the return type is the same function object type - in fact, it reuses the same memory allocation. The function simply stores the supplied parameters inside the given function object, and then returns it.</p>
+<p>If the list of curry steps has only one entry, then this LLVM function contains the real Quill function body. The first <code>arity - a</code> parameters are taken from the function object, and the last <code>a</code> parameters are the LLVM function's arguments. The return type is instead the real return type of the Quill function.</p>
+<p>This all ensures efficient direct and indirect function calls, all while conforming to the most general kind of <code>fobj*</code> calling convention. This optimises function currying even when the compiler does not know in advance which functions are called with what parameters.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+                        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+                
+    </body>
+</html>
