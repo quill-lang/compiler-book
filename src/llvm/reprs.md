@@ -1,8 +1,6 @@
-# Binary representations
+# Representations
 
-When compiling to LLVM IR, we must convert the abstract ideas of an "integer", a "function" and an "impl" into binary representations. We need to compute a representation for every type in a program. The exact binary representations are defined in this section.
-
-## Representations
+## Introduction
 
 A _representation_ of a type is a way of encoding a value of that type into binary. A representation is defined recursively.
 
@@ -27,7 +25,7 @@ We say that a representation has _zero size_ if requires no bits of data to enco
 - \\( \varnothing \\) has zero size.
 - \\( p \\) has non-zero size.
 - \\( i_n \\) has non-zero size.
-- The set \\( \\{ (n_1, R_1), (n_2, R_2), \dots, (n_k, R_k) \\} \\) has zero size if and only if all \\( R_i \\) have zero size.
+- (TODO: this is inaccurate with the new definition of a representation) The set \\( \\{ (n_1, R_1), (n_2, R_2), \dots, (n_k, R_k) \\} \\) has zero size if and only if all \\( R_i \\) have zero size.
 
 In the compiler, if a type's representation has zero size, we sometimes say that the type has _no representation_.
 

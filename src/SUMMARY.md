@@ -23,6 +23,9 @@
   - [Values of types](./correctness/values.md)
   - [Computation rules](./correctness/computation_rules.md)
 
-- [Binary representations](./reprs/reprs.md)
+- [LLVM translation](./llvm/llvm.md)
 
-  - [Primitives](./reprs/primitives.md)
+  - [Representations](./llvm/reprs.md)
+  - [Primitives](./llvm/primitives.md)
+  - [Function objects](./llvm/fobj.md)
+  - [Function currying](./llvm/currying.md)
