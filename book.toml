@@ -1,9 +1,9 @@
 [book]
-authors = ["thirdsgames"]
+authors = ["zeramorphic"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Quill Compiler"
+title = "Quill and Feather specifications"
 
 [output.html]
 mathjax-support = true
