@@ -1,8 +1,8 @@
 # Summary
 
-- [Introduction](./introduction.md)
+[Introduction](./introduction.md)
 
-- [Feather](./feather/feather.md)
+# Feather
 
 - [Feather syntax](./fsyntax/fsyntax.md)
   - [Basic definitions](./fsyntax/basic_definitions.md)
@@ -10,4 +10,6 @@
   - [Precontexts](./fsyntax/precontexts.md)
   - [Pre-environments](./fsyntax/preenvironments.md)
   - [Judgments](./fsyntax/judgments.md)
-  - [Typing rules](./fsyntax/typing_rules.md)
+  - [Functional typing rules](./fsyntax/functional_typing_rules.md)
+  - [Environmental typing rules](./fsyntax/environmental_typing_rules.md)
+  - [Definitional equality](./fsyntax/definitional_equality.md)

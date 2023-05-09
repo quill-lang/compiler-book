@@ -13,3 +13,4 @@ When defining a term for the first time, it will be displayed in *italics*.
 - No universe polymorphism, but still a universe hierarchy.
 - Quantitative type system. Usages correspond to the ideal storage mechanisms at runtime (given sufficient monomorphisation capabilities).
 - Monomorphisation is optional. Types at runtime; no decidable properties (what about `sizeof`?), so fully erasable. Function objects.
+- Reference tracking is inconsistent with quotients, as this would let us forget about a resource (e.g. function extensionality between a function that uses a resource and one that doesn't).

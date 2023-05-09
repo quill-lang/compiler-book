@@ -33,22 +33,32 @@ We also assume that semirings satisfy the following two laws.
 - *positivity*: for \\( x, y \in R \\), \\( x + y = 0 \\) implies \\( x = 0 \\) and \\( y = 0 \\).
 - *integrality*: for \\( x, y \in R \\), \\( xy = 0 \\) implies either \\( x = 0 \\) or \\( y = 0 \\).
 
-We define
+We define the semiring \\( R_\omega = \\{ 0, 1, \omega \\} \\) with operations given by
 
-- \\( R_1 \\) is the semiring \\( \\{0, 1\\} \\) where we define \\( 1 + 1 = 1 \\).
-- \\( R_\omega \\) is the semiring \\( \\{ 0, 1, \omega \\} \\) with operations given by
-  - \\( 1 + 1 = \omega \\);
-  - \\( 1 + \omega = \omega \\);
-  - \\( \omega + \omega = \omega \\);
-  - \\( \omega \cdot \omega = \omega \\).
+- \\( 1 + 1 = \omega \\);
+- \\( 1 + \omega = \omega \\);
+- \\( \omega + \omega = \omega \\);
+- \\( \omega \cdot \omega = \omega \\).
 
-One can check that these structures are indeed semirings, and satisfy positivity and integrality.
+One can check that this structure is indeed a semiring, and satisfies positivity and integrality.
 
 ## Grammars
 
 Precontexts and preterms are defined as syntax adhering to a particular grammar.
 See *Syntax and Semantics of Quantitative Type Theory* (Atkey, 2018) for more information.
 Before defining these grammars, we make a few initial definitions.
+
+### Usages
+
+An *extended usage*, to be interpreted as an element of the semiring \\( R_\omega \\), is of the form
+\\[ \pi ::= 0 \mid 1 \mid \omega \\]
+A *(binary) usage*, to be interpreted as either the element \\( 0 \\) or \\( 1 \\) in \\( R_\omega \\), is of the form
+\\[ \sigma ::= 0 \mid 1 \\]
+In our theory, terms all have an annotated binary usage.
+Variables in contexts, however, may be annotated with \\( 0, 1 \\) or \\( \omega \\) usage.
+The usage \\( \omega \\) records the fact that a resource was used multiple times; a context in which this occurs cannot typically be used in a derivation for a closed term.
+There is an exception, however, in the form of *copyable types*.
+The copying rule, seen later, roughly means that if we can derive a judgment under the assumption \\( x \overset\omega : \alpha \\), and \\( \alpha \\) is a copyable type, then we can derive the same consequent under the weaker assumption \\( x \overset 1 : \alpha \\).
 
 ### Names
 
@@ -66,14 +76,14 @@ A *qualified name*, denoted \\( Q \\), is of the form
 A *universe*, interpreted as an element of the set of natural numbers \\( \mathbb N \\), is of the form
 \\[ u, v, w ::= \\{0, 1, 2, \dots \\} \\]
 We define the operations of *maximum* and *impredicative maximum* by
-\\[ \max(u,v) =
+\\[ \mathsf{max}(u,v) =
     \begin{cases}
         u & \text{if } u > v \\\\
         v & \text{otherwise}
     \end{cases};\quad
-    \operatorname{imax}(u,v) =
+    \mathsf{imax}(u,v) =
     \begin{cases}
         0 & \text{if } v = 0 \\\\
-        \max(u,v) & \text{otherwise}
+        \mathsf{max}(u,v) & \text{otherwise}
     \end{cases}
 \\]

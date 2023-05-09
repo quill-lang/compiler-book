@@ -7,3 +7,6 @@ title = "Quill and Feather specifications"
 
 [output.html]
 mathjax-support = true
+
+# Uncomment to enable PDF output.
+# [output.pdf]

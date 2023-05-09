@@ -8,10 +8,13 @@ The basic introduction rules of functional programming are:
 
 - a *local variable* \\( x \\);
 - an *application* \\( a\ b \\);
-- an *abstraction* (or \\( \lambda \\)-abstraction) \\( \lambda (x \overset\pi : \alpha).\\, a \\);
-- a *function type* (or \\( \Pi \\)-type) \\( (x \overset\pi : \alpha) \to \beta \\);
+- an *abstraction* (or \\( \lambda \\)-abstraction) \\( \lambda (x \overset\sigma : \alpha).\\, a \\);
+- a *function type* (or \\( \Pi \\)-type) \\( (x \overset\sigma : \alpha) \to \beta \\);
 - a *let expression* \\( \mathsf{let}\\ x = a;\\; b \\);
 - a *sort* \\( \mathsf{Sort}\\ u \\).
+
+> Note that the arguments in \\( \lambda \\)-abstractions and \\( \Pi \\)-types are annotated with a binary usage, stating whether the argument has runtime presence or not.
+> Importantly, there is no way for a function to consume \\( \omega \\) copies of an argument.
 
 We write \\( \mathsf{Prop} = \mathsf{Sort}\\ 0 \\) and \\( \mathsf{Type}\\ u = \mathsf{Sort}\\ (u + 1) \\).
 
@@ -20,9 +23,9 @@ We write \\( \mathsf{Prop} = \mathsf{Sort}\\ 0 \\) and \\( \mathsf{Type}\\ u = \
 The introduction rules relating to declarations in the environment, such as algebraic types, are:
 
 - an *instantiate expression* (or *inst expression*) \\( \mathsf{inst}\\ Q \\);
-- an *intro expression* \\( \mathsf{intro}\\ Q\\ \mathsf{with}\\ y_1 \mapsto a_1, \dots, y_n \mapsto a_n \\);
+- an *intro expression* \\( \mathsf{intro}\\ Q\\ a_1\\ \dots\\ a_r\\ \mathsf{with}\\ y_1 \mapsto a_1, \dots, y_n \mapsto a_n \\);
 - a *match expression* \\( \mathsf{match}\\ a\\ \mathsf{return}\\ \alpha\\ \mathsf{with}\\ y_1 \mapsto a_1, \dots, y_n \mapsto a_n \\);
-- a *fix expression* \\( \mathsf{fix}\\ (x \overset\pi : \alpha).\\, a\\).
+- a *fix expression* \\( \mathsf{fix}\\ (x \overset\sigma : \alpha).\\, a\\).
 
 In a match expression, since the type we return could depend on the value of the major premise \\( a \\), we explicitly specify the type \\( \alpha \\) to return.
 
@@ -34,8 +37,7 @@ The introduction rules relating to borrowing are:
 - a *dereference expression* \\( *a \\);
 - a *loan expression* \\( \mathsf{loan}\\ x\\ \mathsf{as}\\ y\\ \mathsf{with}\\ z;\\; b \\);
 - a *take expression* \\( \mathsf{take}\\ x\\ \mathsf{with}\\ y_1 \mapsto a_1, \dots, y_n \mapsto a_n;\\; b \\);
-- an *in expression* \\( a\\ \mathsf{in}\\ b \\);
-- an *in-self expression* \\( \mathsf{inself}\\ a \\).
+- an *in expression* \\( a\\ \mathsf{in}\\ b \\).
 
 In a loan expression, \\( x \\) is a local variable to be loaned, \\( y \\) is the name to assign to the borrow, and \\( z \\) is a local variable which will store a proof of the proposition \\( *y = x \\).
 In the surface-level Quill syntax, a new name is not bound when loaning a variable, but it can be addressed using the syntax \\( \\&x \\).
