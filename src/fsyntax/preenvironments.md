@@ -5,7 +5,7 @@
 Feather's algebraic types are defined as follows.
 
 A *field* is of the form
-\\[ F ::= x \overset\sigma : \alpha \\]
+\\[ F ::= z \overset\sigma : \gamma \\]
 A *variant* is of the form
 \\[ V ::= \varepsilon \mid F,V \\]
 A *pre-datatype* is
@@ -27,7 +27,7 @@ Feather's type theory features an impredicative, proof-irrelevant universe of pr
 We separate propositions and datatypes in order to simplify runtime code; propositions can be entirely erased, so the runtime does not need to know about the additional flexibility offered by proposition types.
 
 A *propositional field* is of the form
-\\[ F^P ::= x : \alpha \\]
+\\[ F^P ::= z : \gamma \\]
 A *propositional variant* is of the form
 \\[ V^P ::= \varepsilon \mid F^P,V^P \\]
 A *pre-proposition* is

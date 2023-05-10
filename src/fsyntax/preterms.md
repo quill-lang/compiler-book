@@ -23,8 +23,8 @@ We write \\( \mathsf{Prop} = \mathsf{Sort}\\ 0 \\) and \\( \mathsf{Type}\\ u = \
 The introduction rules relating to declarations in the environment, such as algebraic types, are:
 
 - an *instantiate expression* (or *inst expression*) \\( \mathsf{inst}\\ Q \\);
-- an *intro expression* \\( \mathsf{intro}\\ Q\\ a_1\\ \dots\\ a_r\\ \mathsf{with}\\ y_1 \mapsto a_1, \dots, y_n \mapsto a_n \\);
-- a *match expression* \\( \mathsf{match}\\ a\\ \mathsf{return}\\ \alpha\\ \mathsf{with}\\ y_1 \mapsto a_1, \dots, y_n \mapsto a_n \\);
+- an *intro expression* \\( \mathsf{intro}\\ Q\\ a_1\\ \dots\\ a_r\\ \mathsf{variant}\\ x\\ \mathsf{with}\\ z_1 \mapsto c_1, \dots, z_n \mapsto c_n \\);
+- a *match expression* \\( \mathsf{match}\\ a\\ \mathsf{return}\\ \alpha\\ \mathsf{with}\\ y_1 \mapsto b_1, \dots, y_n \mapsto b_n \\);
 - a *fix expression* \\( \mathsf{fix}\\ (x \overset\sigma : \alpha).\\, a\\).
 
 In a match expression, since the type we return could depend on the value of the major premise \\( a \\), we explicitly specify the type \\( \alpha \\) to return.
