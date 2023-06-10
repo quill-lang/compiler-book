@@ -59,7 +59,7 @@ First, suppose \\( \Pi \\) contains
 assigned to the name \\( Q \\), and we check \\( a \overset \sigma : Q\\ a_1\\ \dots\\ a_r \\).
 Implicitly, we are assuming that the names of the variants of \\( Q \\) match with the arguments of the \\( \mathsf{match} \\) expression.
 We then check that, for some \\( u \\),
-\\[ \Pi \mid 0\Gamma \vdash \alpha \overset 0 : (a \overset 0 : Q\\ a_1\\ \dots\\ a_r) \to \mathsf{Sort}\\ u \\]
+\\[ \Pi \mid 0\Gamma \vdash \alpha \overset 0 : (x \overset 0 : Q\\ a_1\\ \dots\\ a_r) \to \mathsf{Sort}\\ u \\]
 We now verify that each \\( b_i \\) is well-typed.
 Specifically, if \\( V_i = z_1 \overset{\sigma_1} : \gamma_1, \dots, z_m \overset{\sigma_m} : \gamma_m \\), we check that
 \\[ \begin{aligned}
@@ -73,15 +73,44 @@ Now, suppose \\( \Pi \\) binds the name \\( Q \\) to the proposition
     \mathsf{prop}\\ &(x_1 : \alpha_1), \dots, (x_r : \alpha_r) \mid \beta_1, \dots, \beta_s \Rightarrow \\\\
     & y_1 \mapsto V^P_1 : b_{11}, \dots, b_{1s}; \dots; y_n \mapsto V^P_n : b_{n1}, \dots, b_{ns}
 \end{aligned} \\]
+In this case, we require \\( \sigma = 0 \\).
 We check \\( a \overset 0 : Q\\ a_1\\ \dots\\ a_r\\ a_1'\\ \dots\\ a_s' \\).
 Then, we verify that
-\\[ \Pi \mid 0\Gamma \vdash \alpha \overset 0 : (x_1' \overset 0 : \beta_1) \to \dots \to (x_s' \overset 0 : \beta_s) \to (a \overset 0 : Q\\ a_1\\ \dots\\ a_r\\ x_1'\\ \dots\\ x_s') \to \mathsf{Sort}\\ u \\]
-We check that each \\( b_i \\) is well-typed.
-Suppose we are considering the variant \\( V_i = (z_1 : \gamma_1, \dots, z_m : \gamma_m) : b_{i1}, \dots, b_{is} \\).
+\\[ \Pi \mid 0\Gamma \vdash \alpha \overset 0 : (x_1' \overset 0 : \beta_1) \to \dots \to (x_s' \overset 0 : \beta_s) \to (x \overset 0 : Q\\ a_1\\ \dots\\ a_r\\ x_1'\\ \dots\\ x_s') \to \mathsf{Sort}\\ u \\]
+At this stage, we ensure that \\( u \\) is a valid universe to eliminate into for this particular proposition.
+We perform the following sequence of checks.
+
+- If \\( Q \\) has no variants, \\( u \\) may be any universe.
+- If \\( Q \\) has at least two variants, \\( u \\) must be \\( 0 \\); we can only eliminate into \\( \mathsf{Prop} \\).
+- Suppose \\( Q \\) has one variant \\( V^P \\). If every field satisfies either
+
+  1. its type lies in \\( \mathsf{Prop} \\); or
+  2. it occurs in one of the index parameters \\( b_{11}, \dots, b_{1s} \\),
+
+  then \\( u \\) may be any universe.
+  If any field fails to satisfy both requirements, \\( u \\) must be \\( 0 \\).
+
+We now check that each \\( b_i \\) is well-typed.
+Suppose we are considering the variant \\( V^P_i = (z_1 : \gamma_1, \dots, z_m : \gamma_m) : b_{i1}, \dots, b_{is} \\).
 Then, we check
 \\[ \begin{aligned}
     \Pi \mid \Gamma \vdash\\, &b_i \overset 0 : (z_1 \overset 0 : \gamma_1) \to \dots \to (z_m \overset 0 : \gamma_m) \to \\\\
     &\alpha\\ b_{i1}\\ \dots\\ b_{is}\\ (\mathsf{intro}\\ Q\\ a_1\\ \dots\\ a_r\\ \mathsf{variant}\\ y_i\\ \mathsf{with}\\ z_1 \mapsto z_1, \dots, z_m \mapsto z_m)
 \end{aligned} \\]
 We finally conclude
-\\[ \Pi \mid \Gamma \vdash t \overset \sigma : \alpha\\ a_1'\\ \dots\\ a_s'\\ a \\]
+\\[ \Pi \mid \Gamma \vdash t \overset 0 : \alpha\\ a_1'\\ \dots\\ a_s'\\ a \\]
+
+> TODO: Can we get away with \\( \sigma \\) usage in some cases, such as to perform casts between propositionally equal types?
+
+## Fix expressions
+
+Finally, suppose we wish to typecheck
+\\[ \mathsf{fix}\\ (x \overset\sigma : \alpha)\\ \mathsf{return}\\ \beta\\ \mathsf{with}\\ y.\\, a \\]
+First, we ensure that \\( \alpha \\) is an algebraic datatype or a propositional type.
+If \\( \alpha \\) is a propositional type, we assume \\( \sigma = 0 \\).
+We now check that
+\\[ \Pi \mid 0\Gamma \vdash \beta \overset 0 : (x \overset 0 : \alpha) \to \mathsf{Sort}\\ u \\]
+and
+\\[ \Pi \mid \Gamma, x \overset\sigma : \alpha, y \overset\sigma : (x \overset\sigma : \alpha) \Rightarrow \beta\\ x \vdash a \overset\sigma : \beta\\ x \\]
+Now, we check that each use of \\( y \\) in \\( a \\) occurs as a function in an application expression, where the argument is one of the bound variables from a match expression on \\( x \\), possibly with some arguments applied to it.
+This restriction ensures that the fixpoint function we describe will terminate on all inputs.

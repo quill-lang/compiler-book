@@ -12,4 +12,5 @@
   - [Judgments](./fsyntax/judgments.md)
   - [Functional typing rules](./fsyntax/functional_typing_rules.md)
   - [Environmental typing rules](./fsyntax/environmental_typing_rules.md)
+  - [Borrowing typing rules](./fsyntax/borrowing_typing_rules.md)
   - [Definitional equality](./fsyntax/definitional_equality.md)
