@@ -18,7 +18,7 @@ For each \\( A : \mathsf{Sort}\\ u \\), we assume \\( \Pi \\) contains the type 
 
 ## Loan expressions
 
-\\[ \frac{\Pi \mid \Gamma \vdash x \overset 0 : \alpha, y \overset 1 : \mathsf{ref}\\ \alpha, z \overset 0 : x =_{\mathsf{ref}\\ \alpha} *y \vdash b \overset 1 : \beta}{\Pi \mid \Gamma, x \overset 1 : \alpha \vdash \mathsf{loan}\\ x\\ \mathsf{as}\\ y\\ \mathsf{with}\\ z;\\; b \overset 1 : \beta} \\]
+\\[ \frac{\Pi \mid \Gamma, x \overset 0 : \alpha, y \overset 1 : \mathsf{ref}\\ \alpha, z \overset 0 : x =_{\mathsf{ref}\\ \alpha} *y \vdash b \overset 1 : \beta}{\Pi \mid \Gamma, x \overset 1 : \alpha \vdash \mathsf{loan}\\ x\\ \mathsf{as}\\ y\\ \mathsf{with}\\ z;\\; b \overset 1 : \beta} \\]
 
 We add the additional constraint that, in every code path in \\( b \\), there is a unique \\( \mathsf{take}\\ x \\) expression, not enclosed in any abstraction.
 
